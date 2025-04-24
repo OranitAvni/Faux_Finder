@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="starting">
-      <change afterPath="$PROJECT_DIR$/CombinedDataFakeReal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WELFake_Dataset.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/combined_dataset_fake&amp;real.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fake.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="datasets">
+      <change afterPath="$PROJECT_DIR$/TrainModelRoBERTa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrainModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TrainModel.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +36,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.CombinedDataFakeReal.executor": "Run",
+    "Python.TrainModelRoBERTa.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "last_opened_file_path": "C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa"
   }
@@ -78,11 +74,36 @@
       <option name="project" value="LOCAL‎" />
       <updated>1745431562385</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎-00002" summary="datasets">
+      <option name="closed" value="true" />
+      <created>1745477626460</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL‎-00002" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1745477626460</updated>
+    </task>
+    <task id="LOCAL‎-00003" summary="datasets">
+      <option name="closed" value="true" />
+      <created>1745477873009</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL‎-00003" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1745477873009</updated>
+    </task>
+    <task id="LOCAL‎-00004" summary="datasets">
+      <option name="closed" value="true" />
+      <created>1745477905096</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL‎-00004" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1745477905096</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="starting" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting" />
+    <MESSAGE value="datasets" />
+    <option name="LAST_COMMIT_MESSAGE" value="datasets" />
   </component>
 </project>
