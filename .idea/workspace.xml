@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="datasets">
-      <change afterPath="$PROJECT_DIR$/TrainModelRoBERTa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ClearEWLFake_Dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrainModel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CombinedDataFakeReal.py" beforeDir="false" afterPath="$PROJECT_DIR$/CombinedDataFakeReal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrainModelRoBERTa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/combined_dataset_fake&amp;real.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fake.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/real.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,23 +29,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2w8m3YmQBzqePLJRvSnDKHjpCeB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.CombinedDataFakeReal.executor": "Run",
-    "Python.TrainModelRoBERTa.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.ClearEWLFake_Dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.CombinedDataFakeReal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TrainModelRoBERTa.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cleanText.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa" />
@@ -98,7 +105,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1745477905096</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL‎-00005" summary="datasets">
+      <option name="closed" value="true" />
+      <created>1745480591541</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL‎-00005" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1745480591541</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
