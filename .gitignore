@@ -1,5 +1,5 @@
 # קבצי מודלים כבדים
-#*.h5
+*.h5
 *.keras
 *.npy
 
@@ -21,3 +21,5 @@ __pycache__/
 # סביבות פייתון
 venv/
 .env/
+
+pythonProject1/
