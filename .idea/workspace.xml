@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="datasets">
-      <change afterPath="$PROJECT_DIR$/ClearEWLFake_Dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CombinedDataFakeReal.py" beforeDir="false" afterPath="$PROJECT_DIR$/CombinedDataFakeReal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/combined_dataset_fake&amp;real.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/fake.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/real.csv" beforeDir="false" />
-    </list>
+    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="datasets" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
