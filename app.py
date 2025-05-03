@@ -3,10 +3,12 @@ from transformers import TFRobertaForSequenceClassification, RobertaTokenizer
 import tensorflow as tf
 import pandas as pd
 import os
+from transformers import TFDistilBertForSequenceClassification, DistilBertTokenizer
 
 # Load model and tokenizer
-model = TFRobertaForSequenceClassification.from_pretrained("saved_model_roberta")
-tokenizer = RobertaTokenizer.from_pretrained("saved_model_roberta")
+
+model = TFDistilBertForSequenceClassification.from_pretrained("saved_model_distilbert", local_files_only=True)
+tokenizer = DistilBertTokenizer.from_pretrained("saved_model_distilbert", local_files_only=True)
 
 # Set up feedback file
 FEEDBACK_FILE = "user_feedback.csv"
@@ -14,7 +16,7 @@ if not os.path.exists(FEEDBACK_FILE):
     pd.DataFrame(columns=["text", "score", "feedback"]).to_csv(FEEDBACK_FILE, index=False)
 
 # Streamlit title
-st.title("🗣️ Faux-Finder Chat")
+st.title("Faux-Finder")
 st.write("Enter a news article and get a credibility score.")
 
 # Maintain chat history in session
