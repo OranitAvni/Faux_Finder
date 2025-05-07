@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="datasets">
+    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="try to run app.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,12 +109,21 @@
       <option name="project" value="LOCAL‎" />
       <updated>1745480591541</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL‎-00006" summary="try to run app.py">
+      <option name="closed" value="true" />
+      <created>1746306996643</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL‎-00006" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1746306996643</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="starting" />
     <MESSAGE value="datasets" />
-    <option name="LAST_COMMIT_MESSAGE" value="datasets" />
+    <MESSAGE value="try to run app.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="try to run app.py" />
   </component>
 </project>
