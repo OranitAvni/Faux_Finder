@@ -5,7 +5,7 @@ from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassificat
 from sklearn.metrics import classification_report, accuracy_score
 
 # Load trained model and tokenizer
-model_path = "saved_model_distilbert"
+model_path = "saved_model_distilbert_covid_politics"
 model = TFDistilBertForSequenceClassification.from_pretrained(model_path)
 tokenizer = DistilBertTokenizer.from_pretrained(model_path)
 
