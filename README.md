@@ -11,7 +11,8 @@ Each entry is labeled as:
 * `0` → **Fake**
 * `1` → **Real**
   
- split 80% for train 20% for test
+split 80% for train 20% for test
+
 ---
 
 ## 📊 Model Comparison
