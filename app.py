@@ -7,8 +7,8 @@ import os
 from newspaper import Article
 
 # Load model and tokenizer
-model = TFDistilBertForSequenceClassification.from_pretrained("saved_model_distilbert", local_files_only=True)
-tokenizer = DistilBertTokenizer.from_pretrained("saved_model_distilbert", local_files_only=True)
+model = TFDistilBertForSequenceClassification.from_pretrained("DistilBERT/saved_model_distilbert_Twitter_Articles", local_files_only=True)
+tokenizer = DistilBertTokenizer.from_pretrained("DistilBERT/saved_model_distilbert_Twitter_Articles", local_files_only=True)
 
 # Feedback file setup
 FEEDBACK_FILE = "user_feedback.csv"
@@ -81,7 +81,7 @@ if st.button("Analyze") and input_text.strip():
     # st.markdown(f"**{verdict}**")
 
     # Heat bar + arrow + score in color
-    position_percent = round(credibility_score * 100, 2)
+    position_percent = round((1 - credibility_score) * 100, 2)
     score_color = get_score_color(credibility_score)
 
     heatbar_html = f"""

@@ -4,16 +4,31 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassification
+import matplotlib.pyplot as plt
 
-# Step 1: Load new full balanced dataset (28,000 rows)
-df = pd.read_csv("final_balanced_dataset_with_source.csv")
+
+# Step 1: Load new full balanced dataset
+# df = pd.read_csv("final_balanced_dataset_with_source.csv")
+# df = pd.read_csv("balanced_from_self_and_zenodo-covid19.csv")
+df = pd.read_csv("../data/final_train_dataset.csv")
 
 print("✅ Full dataset loaded!")
+# print(df["label"].value_counts())
+# print(df["source"].value_counts())
+#
+# # Step 2: Prepare data
+# texts = df["text"].astype(str).tolist()  # convert to string in case of NaN
+# labels = df["label"].tolist()
+# print(df["outcome"].value_counts())
+# print(df["text"].isnull().sum())
 print(df["label"].value_counts())
-print(df["source"].value_counts())
+print(df["text"].isnull().sum())
+
+#  fake -> 0, real -> 1
+# df["label"] = df["outcome"].map({"fake": 0, "real": 1})
 
 # Step 2: Prepare data
-texts = df["text"].astype(str).tolist()  # convert to string in case of NaN
+texts = df["text"].astype(str).tolist()  # להבטיח שהטקסט הוא מחרוזת
 labels = df["label"].tolist()
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -60,6 +75,17 @@ history = model.fit(
     epochs=5,
     callbacks=[early_stop]
 )
+plt.figure(figsize=(8, 4))
+plt.plot(history.history["loss"], label="Training Loss")
+plt.plot(history.history["val_loss"], label="Validation Loss")
+plt.title("Model Loss Over Epochs")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
 
 # Step 8: Evaluation
 y_pred_logits = model.predict(test_dataset).logits
@@ -72,7 +98,7 @@ print("\n🔀 Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 
 # Step 9: Save model and tokenizer
-save_path = "saved_model_distilbert_covid_politics"
+save_path = "saved_model_distilbert_Twitter_Articles"
 model.save_pretrained(save_path)
 tokenizer.save_pretrained(save_path)
 
