@@ -54,7 +54,7 @@ Final score = (0.61 + 0.82) / 2 = 0.715
 Launch the Streamlit app:
 
 ```bash
-streamlit run app_streamlit.py
+streamlit run app.py
 ```
 
 Type or paste any news headline or tweet, and get an instant credibility score powered by both models.
