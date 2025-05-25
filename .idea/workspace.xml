@@ -4,29 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="with app&amp;mobile&amp;QR">
-      <change afterPath="$PROJECT_DIR$/CNN/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DistilBERT/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DistilBERT/saved_model_distilbert_politics/config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DistilBERT/saved_model_distilbert_politics/special_tokens_map.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DistilBERT/saved_model_distilbert_politics/tokenizer_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app_DualModel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/twittsAndReports.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evaluation/__init__.py" afterDir="false" />
+    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="Dual model">
+      <change afterPath="$PROJECT_DIR$/CNN/tokenizer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CNN/trainModel_COVID19.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/build_balanced_dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/cutForBalance.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evaluation/manual_predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CombinedDataFakeReal.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/CombinedDataFakeReal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/combinedCOVIDandPolitics.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/combinedCOVIDandPolitics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createEvaluationDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/createEvaluationDataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/label.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/predictCheckForeignDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/predictCheckForeignDataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_model_distilbert/config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_model_distilbert/special_tokens_map.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_model_distilbert/tokenizer_config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved_model_distilbert/vocab.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/source_tweets.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_DualModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_DualModel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +46,7 @@
     "Python.QR.executor": "Run",
     "Python.TrainModelRoBERTa.executor": "Run",
     "Python.app.executor": "Run",
+    "Python.app_DualModel.executor": "Run",
     "Python.cleanText.executor": "Run",
     "Python.combinedCOVIDandPolitics.executor": "Run",
     "Python.createEvaluationDataset.executor": "Run",
@@ -67,17 +55,19 @@
     "Python.trying.executor": "Run",
     "Python.twittsAndReports.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa"
+    "last_opened_file_path": "C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/CNN"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\pythonProject1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\data" />
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\evaluation" />
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\data" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\DistilBERT" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa" />
     </key>
@@ -178,7 +168,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1747733875466</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL‎-00011" summary="Dual model">
+      <option name="closed" value="true" />
+      <created>1748116120809</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL‎-00011" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1748116120809</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -188,6 +186,7 @@
     <MESSAGE value="with predictCheck file" />
     <MESSAGE value="combine dataset and evaluation" />
     <MESSAGE value="with app&amp;mobile&amp;QR" />
-    <option name="LAST_COMMIT_MESSAGE" value="with app&amp;mobile&amp;QR" />
+    <MESSAGE value="Dual model" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dual model" />
   </component>
 </project>
