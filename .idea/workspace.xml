@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="Dual model">
-      <change afterPath="$PROJECT_DIR$/CNN/tokenizer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CNN/trainModel_COVID19.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/build_balanced_dataset.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/cutForBalance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evaluation/manual_predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DistilBERT/model_metrics_report.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evaluation/CNN_dataEvaluation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_DualModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_DualModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/predictCheckForeignDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +48,9 @@
     "Python.cleanText.executor": "Run",
     "Python.combinedCOVIDandPolitics.executor": "Run",
     "Python.createEvaluationDataset.executor": "Run",
+    "Python.distilbert_dataEvaluation.py.executor": "Run",
     "Python.mobile.executor": "Run",
+    "Python.model_metrics_report.executor": "Run",
     "Python.predictCheckForeignDataset.executor": "Run",
     "Python.trying.executor": "Run",
     "Python.twittsAndReports.executor": "Run",
@@ -65,8 +65,8 @@
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\pythonProject1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\evaluation" />
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\data" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\DistilBERT" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa" />
@@ -176,7 +176,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1748116120809</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL‎-00012" summary="Dual model">
+      <option name="closed" value="true" />
+      <created>1748189385615</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL‎-00012" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1748189385615</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

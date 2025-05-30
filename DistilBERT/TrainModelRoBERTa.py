@@ -87,15 +87,40 @@ plt.tight_layout()
 plt.show()
 
 
+# # Step 8: Evaluation
+# y_pred_logits = model.predict(test_dataset).logits
+# y_pred = np.argmax(y_pred_logits, axis=1)
+#
+# print("\n📊 Classification Report:")
+# print(classification_report(y_test, y_pred, target_names=["Fake", "Real"]))
+#
+# print("\n🔀 Confusion Matrix:")
+# print(confusion_matrix(y_test, y_pred))
+
 # Step 8: Evaluation
 y_pred_logits = model.predict(test_dataset).logits
 y_pred = np.argmax(y_pred_logits, axis=1)
 
-print("\n📊 Classification Report:")
-print(classification_report(y_test, y_pred, target_names=["Fake", "Real"]))
+# 👇 נהפוך כדי שפייק (0) יהיה "positive class"
+y_true = np.array(y_test)
+y_true_adjusted = 1 - y_true  # עכשיו fake=1, real=0
+y_pred_adjusted = 1 - y_pred
 
-print("\n🔀 Confusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
+print("\n📊 Classification Report (Fake = Positive class):")
+print(classification_report(
+    y_true_adjusted, y_pred_adjusted,
+    target_names=["Real", "Fake"],
+    zero_division=0
+))
+
+# Confusion matrix
+tn, fp, fn, tp = confusion_matrix(y_true_adjusted, y_pred_adjusted).ravel()
+
+print("\n🔀 Confusion Matrix (Fake = Positive):")
+print(f"True Positives (TP – Fake detected correctly): {tp}")
+print(f"False Positives (FP – Real misclassified as Fake): {fp}")
+print(f"False Negatives (FN – Fake misclassified as Real): {fn}")
+print(f"True Negatives (TN – Real detected correctly): {tn}")
 
 # Step 9: Save model and tokenizer
 save_path = "saved_model_distilbert_Twitter_Articles"

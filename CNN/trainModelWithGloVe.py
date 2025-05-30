@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
+from keras.src.optimizers import Adam
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, precision_score, accuracy_score, recall_score, confusion_matrix
 from tensorflow.keras.layers import TextVectorization, Embedding, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Dense, Input, Dropout
@@ -34,9 +35,10 @@ def clean_text(text):
     return " ".join(words)
 
 # --- שלב 1: קריאה והכנה ---
-df = pd.read_csv("Fake-News\\balanced_combined_from_self_and_zenodo.csv")
+df = pd.read_csv("Datasets/kaggle_dataset_politics.csv")
+
 df["text"] = df["text"].astype(str).apply(clean_text)
-df["label"] = df["outcome"].map({'real': 1, 'fake': 0})
+df["label"] = df["label"].astype('float32')
 
 x = df["text"].values
 y = df["label"].values.astype('float32')
@@ -88,11 +90,11 @@ x = vectorization2(i)
 x = Embedding(V, D, weights=[embedding_matrix], trainable=True)(x)
 
 # בדיוק כמו במאמר: 2 convolution blocks בלבד
-x = Conv1D(64, 3, activation='relu')(x)
+x = Conv1D(64, 2, activation='relu')(x)
 x = MaxPooling1D(3)(x)
 x = Dropout(0.3)(x)
 
-x = Conv1D(128, 3, activation='relu')(x)
+x = Conv1D(128, 2, activation='relu')(x)
 x = MaxPooling1D(3)(x)
 x = Dropout(0.3)(x)
 
@@ -101,18 +103,35 @@ x = Dropout(0.3)(x)
 x = Dense(1, activation='sigmoid')(x)
 
 model = Model(i, x)
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(
+    optimizer=Adam(learning_rate=0.00001),
+    loss='binary_crossentropy',
+    metrics=['accuracy'])
 early_stop = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
     patience=3,
     restore_best_weights=True
 )
 
-r = model.fit(train_ds, validation_data=test_ds, epochs=5, callbacks=[early_stop])
+r = model.fit(train_ds, validation_data=test_ds, epochs=30, callbacks=[early_stop])
+
+# --- גרף של loss לאורך epochs ---
+plt.figure(figsize=(8, 5))
+plt.plot(r.history['loss'], label='Train')
+plt.plot(r.history['val_loss'], label='Validation')
+plt.title('Model Loss Over Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
 
 # --- שמירת המודל והוקטוריזציה ---
-model.save("faux_finder_model.keras", save_format="keras")
+model.save("CNN_Models/kaggle_dataset_politics.keras", save_format="keras")
 print("\n✅ המודל והוקטוריזציה נשמרו בהצלחה!")
+
 
 # --- הערכת ביצועי המודל על סט הבדיקה ---
 texts = []
@@ -126,28 +145,31 @@ texts_tensor = tf.convert_to_tensor(texts)
 pred_probs = model.predict(texts_tensor)
 pred_labels = (pred_probs.flatten() >= 0.5).astype(int)
 
+# --- היפוך תוויות כדי שה-TP בפלט יהיה עבור פייק (0) ---
+labels = 1 - np.array(labels)
+pred_labels = 1 - pred_labels
+
 # חישוב מטריצת בלבול
 cm = confusion_matrix(labels, pred_labels)
 TN, FP, FN, TP = cm.ravel()
 
-# מדדים נוספים
-accuracy = accuracy_score(labels, pred_labels)
-precision = precision_score(labels, pred_labels)
-recall = recall_score(labels, pred_labels)
-f1 = f1_score(labels, pred_labels)
+# --- חישוב מדדים ---
+accuracy = (TP + TN) / (TP + TN + FP + FN)
+precision = TP / (TP + FP) if (TP + FP) > 0 else 0
+recall = TP / (TP + FN) if (TP + FN) > 0 else 0
+f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
 loss, _ = model.evaluate(test_ds, verbose=0)
 
-# --- הדפסת התוצאות ---
-print("\n📊 תוצאות המודל:")
+print("\n📊results:")
 print(f"✅ True Positives: {TP}")
 print(f"❌ False Positives: {FP}")
 print(f"❌ False Negatives: {FN}")
 print(f"✅ True Negatives: {TN}")
-print(f"📌 Prediction real news (סה\"כ): {sum(pred_labels)}")
+print(f"📌 Prediction fake news: {sum(pred_labels)}")
 
-print("\n📈 מדדים:")
-print(f"🎯 Accuracy:  {accuracy:.4f}")
+print("\n📈")
+print(f"🎯 Accuracy :  {accuracy:.4f}")
 print(f"🎯 Precision: {precision:.4f}")
 print(f"🔁 Recall:    {recall:.4f}")
 print(f"💡 F1 Score:  {f1:.4f}")
-print(f"🧮 Loss:      {loss:.4f}")
+print(f"🧮 Loss:              {loss:.4f}")

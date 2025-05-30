@@ -76,7 +76,7 @@ if st.button("Analyze") and input_text.strip():
     score_color = get_score_color(credibility_score)
 
     heatbar_html = f"""
-    <div style="position: relative; height: 90px; margin-top: 30px; margin-bottom: 60px;">
+    <div style="position: relative; height: 90px; margin-top: 30px; margin-bottom: 20px;">
         <div style="height: 20px; background: linear-gradient(to right, green, yellow, orange, red);
                     border-radius: 10px; box-shadow: inset 0 0 5px #aaa;"></div>
         <div style="position: absolute; top: 25px; left: {position_percent}%;
