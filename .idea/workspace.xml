@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="Dual model">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="updated datasets names">
       <change beforePath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/createEvaluationDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/createEvaluationDataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/twittsAndReports.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/twittsAndReports.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistilBERT/model_metrics_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/model_metrics_report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/combinedCOVIDandPolitics.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/combinedCOVIDandPolitics.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +188,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1748602590826</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL‎-00014" summary="updated datasets names">
+      <option name="closed" value="true" />
+      <created>1749048400024</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL‎-00014" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1749048400024</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,6 +218,7 @@
     <MESSAGE value="combine dataset and evaluation" />
     <MESSAGE value="with app&amp;mobile&amp;QR" />
     <MESSAGE value="Dual model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dual model" />
+    <MESSAGE value="updated datasets names" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated datasets names" />
   </component>
 </project>

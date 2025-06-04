@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 
 # Step 1: Load new full balanced dataset
-# df = pd.read_csv("final_balanced_dataset_with_source.csv")
+# df = pd.read_csv("combined_balanced_dataset_with_source.csv")
 # df = pd.read_csv("balanced_from_self_and_zenodo-covid19.csv")
 df = pd.read_csv("../data/politics_Twitter_articles_Big.csv")
 

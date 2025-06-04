@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Load dataset
-df = pd.read_csv("../data/final_balanced_dataset_with_source.csv")
+df = pd.read_csv("../data/combined_balanced_dataset_with_source.csv")
 texts = df["text"].astype(str).tolist()
 labels = df["label"].tolist()
 
