@@ -43,6 +43,6 @@ df_texts = pd.DataFrame({
 merged_df = pd.merge(df_labels, df_texts, on="tweet_id", how="inner")
 
 # שמירה לקובץ חדש
-merged_df.to_csv("evaluation_dataset.csv", index=False)
-print("✅ הקובץ evaluation_dataset.csv נוצר בהצלחה!")
+merged_df.to_csv("dataset_politics_TWITTER.csv", index=False)
+print("✅ הקובץ dataset_politics_TWITTER.csv נוצר בהצלחה!")
 print(merged_df.head())

@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="Dual model">
-      <change afterPath="$PROJECT_DIR$/DistilBERT/model_metrics_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evaluation/CNN_dataEvaluation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_DualModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_DualModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/predictCheckForeignDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/createEvaluationDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/createEvaluationDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/twittsAndReports.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/twittsAndReports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,27 +35,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.ClearEWLFake_Dataset.executor": "Run",
-    "Python.CombinedDataFakeReal.executor": "Run",
-    "Python.QR.executor": "Run",
-    "Python.TrainModelRoBERTa.executor": "Run",
-    "Python.app.executor": "Run",
-    "Python.app_DualModel.executor": "Run",
-    "Python.cleanText.executor": "Run",
-    "Python.combinedCOVIDandPolitics.executor": "Run",
-    "Python.createEvaluationDataset.executor": "Run",
-    "Python.distilbert_dataEvaluation.py.executor": "Run",
-    "Python.mobile.executor": "Run",
-    "Python.model_metrics_report.executor": "Run",
-    "Python.predictCheckForeignDataset.executor": "Run",
-    "Python.trying.executor": "Run",
-    "Python.twittsAndReports.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/CNN"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.ClearEWLFake_Dataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.CombinedDataFakeReal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.QR.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TrainModelRoBERTa.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_DualModel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cleanText.executor&quot;: &quot;Run&quot;,
+    &quot;Python.combinedCOVIDandPolitics.executor&quot;: &quot;Run&quot;,
+    &quot;Python.createEvaluationDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.distilbert_dataEvaluation.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mobile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.model_metrics_report.executor&quot;: &quot;Run&quot;,
+    &quot;Python.predictCheckForeignDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.trying.executor&quot;: &quot;Run&quot;,
+    &quot;Python.twittsAndReports.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/CNN&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
@@ -184,8 +182,27 @@
       <option name="project" value="LOCAL‎" />
       <updated>1748189385615</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL‎-00013" summary="Dual model">
+      <option name="closed" value="true" />
+      <created>1748602590826</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL‎-00013" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1748602590826</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="starting" />

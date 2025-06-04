@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.utils import shuffle
 
 # === Load datasets ===
-tweets_eval_df = pd.read_csv("evaluation_dataset.csv")  # columns: 'text', 'label'
+tweets_eval_df = pd.read_csv("dataset_politics_TWITTER.csv")  # columns: 'text', 'label'
 tweets_other_df = pd.read_csv("ObTr1.csv", encoding="cp1255")
 articles_df = pd.read_csv("balanced_10k_dataset_politics.csv")  # columns: 'text', 'label'
 
@@ -38,8 +38,8 @@ train_df = shuffle(train_df, random_state=42).reset_index(drop=True)
 eval_df = shuffle(eval_df, random_state=42).reset_index(drop=True)
 
 # === Save final CSVs ===
-train_df.to_csv("final_train_dataset.csv", index=False)
-eval_df.to_csv("final_eval_dataset.csv", index=False)
+train_df.to_csv("politics_Twitter_articles_Big.csv", index=False)
+eval_df.to_csv("politics_Twitter_articles_small.csv", index=False)
 
 print("✅ Datasets created successfully with source column included.")
 print(f"Train size: {len(train_df)}, Eval size: {len(eval_df)}")

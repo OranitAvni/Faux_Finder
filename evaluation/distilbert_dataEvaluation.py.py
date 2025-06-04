@@ -10,7 +10,7 @@
 # tokenizer = DistilBertTokenizer.from_pretrained(model_path)
 #
 # # Load dataset to evaluate
-# df = pd.read_csv("final_eval_dataset.csv")
+# df = pd.read_csv("politics_Twitter_articles_small.csv")
 # texts = df["text"].tolist()
 # labels = df["label"].tolist()
 #
@@ -50,7 +50,7 @@ model = TFDistilBertForSequenceClassification.from_pretrained(model_path)
 tokenizer = DistilBertTokenizer.from_pretrained(model_path)
 
 # Load dataset to evaluate
-df = pd.read_csv("../data/final_eval_dataset.csv")
+df = pd.read_csv("../data/politics_Twitter_articles_small.csv")
 texts = df["text"].tolist()
 labels = df["label"].tolist()
 
