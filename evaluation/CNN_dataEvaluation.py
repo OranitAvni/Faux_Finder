@@ -30,10 +30,10 @@ def clean_text(text):
     return " ".join(words)
 
 # שלב 1: טען את המודל
-model = load_model("CNN_Models/kaggle_dataset_politics.keras")
+model = load_model("CNN/saved_model_CNN_politics/politics_model.keras")
 
 # שלב 2: טען את הדאטאסט החדש
-df = pd.read_csv("Datasets/combined_balanced_sport.csv")
+df = pd.read_csv("../data/politics_Twitter_articles_small.csv")
 df["text"] = df["text"].astype(str).apply(clean_text)
 
 # שלב 3: הכנת וקטוריזציה

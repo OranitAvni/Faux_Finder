@@ -35,7 +35,7 @@ def clean_text(text):
     return " ".join(words)
 
 # --- שלב 1: קריאה והכנה ---
-df = pd.read_csv("Datasets/kaggle_dataset_politics.csv")
+df = pd.read_csv("../data/politics_Twitter_articles_Big.csv")
 
 df["text"] = df["text"].astype(str).apply(clean_text)
 df["label"] = df["label"].astype('float32')
@@ -129,7 +129,7 @@ plt.show()
 
 
 # --- שמירת המודל והוקטוריזציה ---
-model.save("CNN_Models/kaggle_dataset_politics.keras", save_format="keras")
+model.save("CNN/saved_model_CNN_politics/politics_model.keras", save_format="keras")
 print("\n✅ המודל והוקטוריזציה נשמרו בהצלחה!")
 
 
