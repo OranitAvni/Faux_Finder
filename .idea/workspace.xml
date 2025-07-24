@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="updated datasets names">
+      <change afterPath="$PROJECT_DIR$/clearTF.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/tokenizer.json" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/CNN_Models/tokenizer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN/trainModel_COVID19.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/trainModel_COVID19.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DistilBERT/model_metrics_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/model_metrics_report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/combinedCOVIDandPolitics.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/combinedCOVIDandPolitics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QR.py" beforeDir="false" afterPath="$PROJECT_DIR$/QR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_DualModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_DualModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/CombinedDataFakeReal.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/CombinedDataFakeReal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/createEvaluationDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/createEvaluationDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cutForBalance.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/cutForBalance.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/CNN_dataEvaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/CNN_dataEvaluation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/manual_predict.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +46,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.CNN_dataEvaluation.executor&quot;: &quot;Run&quot;,
     &quot;Python.ClearEWLFake_Dataset.executor&quot;: &quot;Run&quot;,
     &quot;Python.CombinedDataFakeReal.executor&quot;: &quot;Run&quot;,
     &quot;Python.QR.executor&quot;: &quot;Run&quot;,
@@ -42,30 +54,33 @@
     &quot;Python.app.executor&quot;: &quot;Run&quot;,
     &quot;Python.app_DualModel.executor&quot;: &quot;Run&quot;,
     &quot;Python.cleanText.executor&quot;: &quot;Run&quot;,
+    &quot;Python.clearTF.executor&quot;: &quot;Run&quot;,
     &quot;Python.combinedCOVIDandPolitics.executor&quot;: &quot;Run&quot;,
     &quot;Python.createEvaluationDataset.executor&quot;: &quot;Run&quot;,
     &quot;Python.distilbert_dataEvaluation.py.executor&quot;: &quot;Run&quot;,
     &quot;Python.mobile.executor&quot;: &quot;Run&quot;,
     &quot;Python.model_metrics_report.executor&quot;: &quot;Run&quot;,
     &quot;Python.predictCheckForeignDataset.executor&quot;: &quot;Run&quot;,
+    &quot;Python.trainModelWithGloVe.executor&quot;: &quot;Run&quot;,
     &quot;Python.trying.executor&quot;: &quot;Run&quot;,
     &quot;Python.twittsAndReports.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/CNN&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/data&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\data" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\pythonProject1" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\evaluation" />
-      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN\CNN_Models" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\data" />
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\CNN" />
+      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\evaluation" />
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\DistilBERT" />
-      <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -196,7 +211,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1749048400024</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL‎-00015" summary="updated datasets names">
+      <option name="closed" value="true" />
+      <created>1749048719659</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL‎-00015" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1749048719659</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

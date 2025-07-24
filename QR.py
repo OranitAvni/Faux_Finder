@@ -1,15 +1,16 @@
 from turtle import st
+import streamlit as st
 
 import qrcode
 from PIL import Image
 
-# כתובת הגישה שלך
-ip_address = "192.168.1.188"
+# change by IP
+ip_address = "10.200.117.176"
 url = f"http://{ip_address}:8501"
 
-# צור את הקוד
+# Generate the QR code
 qr = qrcode.make(url)
 qr.save("qr_code.png")
 
-# הצג את התמונה ב־Streamlit
+# Display the image in Streamlit
 st.image("qr_code.png", caption="Scan this to open on mobile 📱")

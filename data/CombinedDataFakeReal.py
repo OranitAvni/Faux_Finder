@@ -29,6 +29,6 @@ combined_df = combined_df.dropna(subset=["label"])
 combined_df["label"] = combined_df["label"].astype(int)
 
 # Step 8: Save the cleaned dataset
-combined_df.to_csv("combined_dataset_fake&real_cleaned.csv", index=False, encoding="utf-8")
+combined_df.to_csv("full_dataset_kaggle_40000.csv", index=False, encoding="utf-8")
 
 print("✅ Successfully created 'combined_dataset_fake&real_cleaned.csv' with", len(combined_df), "rows.")

@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 
 # Step 1: Load new full balanced dataset
 # df = pd.read_csv("combined_balanced_dataset_with_source.csv")
-# df = pd.read_csv("balanced_from_self_and_zenodo-covid19.csv")
-df = pd.read_csv("../data/politics_Twitter_articles_Big.csv")
+df = pd.read_csv("../data/balanced_from_self_and_zenodo-covid19.csv")
+# df = pd.read_csv("../data/politics_Twitter_articles_Big.csv")
 
 print("✅ Full dataset loaded!")
 # print(df["label"].value_counts())
@@ -20,12 +20,12 @@ print("✅ Full dataset loaded!")
 # texts = df["text"].astype(str).tolist()  # convert to string in case of NaN
 # labels = df["label"].tolist()
 # print(df["outcome"].value_counts())
-# print(df["text"].isnull().sum())
-print(df["label"].value_counts())
 print(df["text"].isnull().sum())
+# print(df["label"].value_counts())
+# print(df["text"].isnull().sum())
 
 #  fake -> 0, real -> 1
-# df["label"] = df["outcome"].map({"fake": 0, "real": 1})
+df["label"] = df["outcome"].map({"fake": 0, "real": 1})
 
 # Step 2: Prepare data
 texts = df["text"].astype(str).tolist()  # להבטיח שהטקסט הוא מחרוזת
@@ -123,7 +123,7 @@ print(f"False Negatives (FN – Fake misclassified as Real): {fn}")
 print(f"True Negatives (TN – Real detected correctly): {tn}")
 
 # Step 9: Save model and tokenizer
-save_path = "saved_model_distilbert_Twitter_Articles"
+save_path = "saved_model_distilbert_covid"
 model.save_pretrained(save_path)
 tokenizer.save_pretrained(save_path)
 

@@ -12,8 +12,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-
-# --- הורדת משאבים לניקוי טקסט ---
+# --- Download text preprocessing resources ---
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -22,7 +21,7 @@ nltk.download('omw-1.4')
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 
-# --- פונקציית ניקוי טקסט ---
+# --- Text cleaning function ---
 def clean_text(text):
     text = text.lower()
     text = re.sub(r"http\S+|www\S+|https\S+", "", text)
@@ -34,8 +33,8 @@ def clean_text(text):
     words = [lemmatizer.lemmatize(word) for word in words]
     return " ".join(words)
 
-# --- שלב 1: קריאה והכנה ---
-df = pd.read_csv("../data/politics_Twitter_articles_Big.csv")
+# --- Step 1: Load and preprocess ---
+df = pd.read_csv("Datasets/kaggle_dataset_politics.csv")
 
 df["text"] = df["text"].astype(str).apply(clean_text)
 df["label"] = df["label"].astype('float32')
@@ -54,8 +53,8 @@ vectorization.adapt(train_ds.map(lambda x, y: x))
 train_ds = train_ds.shuffle(10000).batch(32).prefetch(tf.data.AUTOTUNE)
 test_ds = test_ds.batch(32).prefetch(tf.data.AUTOTUNE)
 
-# --- שלב 2: טעינת GloVe ---
-print("\U0001F4E5 טוען GloVe...")
+# --- Step 2: Load GloVe embeddings ---
+print("\U0001F4E5 Loading GloVe...")
 embedding_index = {}
 with open("glove.6B.100d.txt", encoding='utf8') as f:
     for line in f:
@@ -64,7 +63,7 @@ with open("glove.6B.100d.txt", encoding='utf8') as f:
         vector = np.asarray(values[1:], dtype='float32')
         embedding_index[word] = vector
 
-# --- שלב 3: בניית מטריצת embedding ---
+# --- Step 3: Build embedding matrix ---
 embedding_dim = 100
 vocab = vectorization.get_vocabulary()
 word_index = dict(zip(vocab, range(len(vocab))))
@@ -75,7 +74,7 @@ for word, i in word_index.items():
     if embedding_vector is not None:
         embedding_matrix[i] = embedding_vector
 
-# --- שלב 4: בניית המודל ---
+# --- Step 4: Build model ---
 D = embedding_dim
 V = len(vocab)
 
@@ -89,7 +88,7 @@ i = Input(shape=(), dtype=tf.string)
 x = vectorization2(i)
 x = Embedding(V, D, weights=[embedding_matrix], trainable=True)(x)
 
-# בדיוק כמו במאמר: 2 convolution blocks בלבד
+# Just like in the paper: 2 convolution blocks only
 x = Conv1D(64, 2, activation='relu')(x)
 x = MaxPooling1D(3)(x)
 x = Dropout(0.3)(x)
@@ -115,7 +114,7 @@ early_stop = tf.keras.callbacks.EarlyStopping(
 
 r = model.fit(train_ds, validation_data=test_ds, epochs=30, callbacks=[early_stop])
 
-# --- גרף של loss לאורך epochs ---
+# --- Plot loss over epochs ---
 plt.figure(figsize=(8, 5))
 plt.plot(r.history['loss'], label='Train')
 plt.plot(r.history['val_loss'], label='Validation')
@@ -127,13 +126,11 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+# --- Save model and vectorization ---
+model.save("CNN_Models/kaggle_dataset_politics.keras", save_format="keras")
+print("\n✅ Model and vectorization saved successfully!")
 
-# --- שמירת המודל והוקטוריזציה ---
-model.save("CNN/saved_model_CNN_politics/politics_model.keras", save_format="keras")
-print("\n✅ המודל והוקטוריזציה נשמרו בהצלחה!")
-
-
-# --- הערכת ביצועי המודל על סט הבדיקה ---
+# --- Evaluate model on test set ---
 texts = []
 labels = []
 
@@ -145,15 +142,15 @@ texts_tensor = tf.convert_to_tensor(texts)
 pred_probs = model.predict(texts_tensor)
 pred_labels = (pred_probs.flatten() >= 0.5).astype(int)
 
-# --- היפוך תוויות כדי שה-TP בפלט יהיה עבור פייק (0) ---
+# Invert labels so TP in output is for fake (0)
 labels = 1 - np.array(labels)
 pred_labels = 1 - pred_labels
 
-# חישוב מטריצת בלבול
+# Confusion matrix
 cm = confusion_matrix(labels, pred_labels)
 TN, FP, FN, TP = cm.ravel()
 
-# --- חישוב מדדים ---
+# --- Compute metrics ---
 accuracy = (TP + TN) / (TP + TN + FP + FN)
 precision = TP / (TP + FP) if (TP + FP) > 0 else 0
 recall = TP / (TP + FN) if (TP + FN) > 0 else 0

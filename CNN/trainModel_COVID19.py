@@ -14,8 +14,8 @@ from tensorflow.keras.layers import Dropout
 
 df = pd.read_csv("balanced_dataset.csv")
 
-x = df["headlines"].values      # עמודת המשפטים
-y = df["outcome"].values     # עמודת התוויות (0 או 1)
+x = df["headlines"].values
+y = df["outcome"].values
 df_train, df_test, Ytrain, Ytest = train_test_split(x, y, test_size=0.2, stratify=y)
 label_counts = pd.Series(Ytest).value_counts()
 
@@ -101,7 +101,7 @@ r = model.fit(
 final_val_loss = r.history['val_loss'][-1]
 print(f"Final validation loss: {final_val_loss:.4f}")
 
-# שלב 1: הוצאת טקסטים ותוויות מתוך test_ds
+# Step 1: Extract texts and labels from test_ds
 texts = []
 labels = []
 
@@ -109,32 +109,31 @@ for text, label in test_ds.unbatch():
     texts.append(text.numpy().decode('utf-8'))
     labels.append(int(label.numpy()))
 
-# שלב 2: תחזיות
+# Step 2: Predictions
 texts_tensor = tf.convert_to_tensor(texts)
 pred_probs = model.predict(texts_tensor)
 pred_labels = (pred_probs.flatten() >= 0.5).astype(int)
 
-# שלב 3: Confusion Matrix
+# Step 3: Confusion Matrix
 cm = confusion_matrix(labels, pred_labels)
 TN, FP, FN, TP = cm.ravel()
 
-# שלב 4: מדדים נוספים
+# Step 4: Additional Metrics
 accuracy = accuracy_score(labels, pred_labels)
 precision = precision_score(labels, pred_labels)
 recall = recall_score(labels, pred_labels)
 f1 = f1_score(labels, pred_labels)
 
-# הדפסה
-print("\n📊 תוצאות המודל:")
+# Output
+print("\n📊 Model Results:")
 print(f"✅ True Positives: {TP}")
 print(f"❌ False Positives: {FP}")
 print(f"❌ False Negatives: {FN}")
 print(f"✅ True Negatives: {TN}")
-print(f"📌 Prediction real news (סך הכל): {sum(pred_labels)}")
+print(f"📌 Prediction real news (total): {sum(pred_labels)}")
 
-print("\n📈 מדדים:")
+print("\n📈 Metrics:")
 print(f"🎯 Accuracy:  {accuracy:.4f}")
 print(f"🎯 Precision: {precision:.4f}")
 print(f"🔁 Recall:    {recall:.4f}")
 print(f"💡 F1 Score:  {f1:.4f}")
-

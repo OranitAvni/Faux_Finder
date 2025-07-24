@@ -9,12 +9,12 @@ from newspaper import Article
 
 # === Load models ===
 model_bert = TFDistilBertForSequenceClassification.from_pretrained(
-    "DistilBERT/saved_model_CNN_politics", local_files_only=True)
+    "DistilBERT/saved_model_distilbert_politics", local_files_only=True)
 
 tokenizer_bert = DistilBertTokenizer.from_pretrained(
-    "DistilBERT/saved_model_CNN_politics", local_files_only=True)
+    "DistilBERT/saved_model_distilbert_politics", local_files_only=True)
 
-model_cnn = tf.keras.models.load_model("CNN/saved_model_CNN_politics/politics_model.keras")
+model_cnn = tf.keras.models.load_model("CNN/politics_model.keras")
 
 # === Feedback file setup ===
 FEEDBACK_FILE = "user_feedback.csv"
