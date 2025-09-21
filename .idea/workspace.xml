@@ -4,21 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="updated datasets names">
-      <change afterPath="$PROJECT_DIR$/clearTF.py" afterDir="false" />
+    <list default="true" id="92487e70-905b-48ae-9115-39f4a4fbe089" name="Changes" comment="edit commented">
+      <change afterPath="$PROJECT_DIR$/CNN/cnn_models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/data_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/eval_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/viz_utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN/tokenizer.json" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/CNN_Models/tokenizer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/trainModelWithGloVe.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CNN/trainModel_COVID19.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN/trainModel_COVID19.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QR.py" beforeDir="false" afterPath="$PROJECT_DIR$/QR.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_DualModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_DualModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/CombinedDataFakeReal.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/CombinedDataFakeReal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/createEvaluationDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/createEvaluationDataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/cutForBalance.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/cutForBalance.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DistilBERT/TrainModelRoBERTa.py" beforeDir="false" afterPath="$PROJECT_DIR$/DistilBERT/TrainModelDistilbert.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evaluation/CNN_dataEvaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/CNN_dataEvaluation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/distilbert_dataEvaluation.py.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/manual_predict.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,30 +41,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.CNN_dataEvaluation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ClearEWLFake_Dataset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.CombinedDataFakeReal.executor&quot;: &quot;Run&quot;,
-    &quot;Python.QR.executor&quot;: &quot;Run&quot;,
-    &quot;Python.TrainModelRoBERTa.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app_DualModel.executor&quot;: &quot;Run&quot;,
-    &quot;Python.cleanText.executor&quot;: &quot;Run&quot;,
-    &quot;Python.clearTF.executor&quot;: &quot;Run&quot;,
-    &quot;Python.combinedCOVIDandPolitics.executor&quot;: &quot;Run&quot;,
-    &quot;Python.createEvaluationDataset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.distilbert_dataEvaluation.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mobile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.model_metrics_report.executor&quot;: &quot;Run&quot;,
-    &quot;Python.predictCheckForeignDataset.executor&quot;: &quot;Run&quot;,
-    &quot;Python.trainModelWithGloVe.executor&quot;: &quot;Run&quot;,
-    &quot;Python.trying.executor&quot;: &quot;Run&quot;,
-    &quot;Python.twittsAndReports.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/data&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.CNN_dataEvaluation.executor": "Run",
+    "Python.ClearEWLFake_Dataset.executor": "Run",
+    "Python.CombinedDataFakeReal.executor": "Run",
+    "Python.QR.executor": "Run",
+    "Python.TrainModelDistilbert.executor": "Run",
+    "Python.TrainModelRoBERTa.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.app_DualModel.executor": "Run",
+    "Python.cleanText.executor": "Run",
+    "Python.clearTF.executor": "Run",
+    "Python.combinedCOVIDandPolitics.executor": "Run",
+    "Python.createEvaluationDataset.executor": "Run",
+    "Python.distilbert_dataEvaluation.py.executor": "Run",
+    "Python.mobile.executor": "Run",
+    "Python.model_metrics_report.executor": "Run",
+    "Python.predictCheckForeignDataset.executor": "Run",
+    "Python.trainModelWithGloVe.executor": "Run",
+    "Python.trainModel_COVID19.executor": "Run",
+    "Python.trying.executor": "Run",
+    "Python.twittsAndReports.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/משתמש/PycharmProjects/pythonProject/Faux-Finder-RoBERTa/data"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\משתמש\PycharmProjects\pythonProject\Faux-Finder-RoBERTa\data" />
@@ -219,7 +218,15 @@
       <option name="project" value="LOCAL‎" />
       <updated>1749048719659</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL‎-00016" summary="edit commented">
+      <option name="closed" value="true" />
+      <created>1753355610843</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL‎-00016" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1753355610843</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -242,6 +249,7 @@
     <MESSAGE value="with app&amp;mobile&amp;QR" />
     <MESSAGE value="Dual model" />
     <MESSAGE value="updated datasets names" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated datasets names" />
+    <MESSAGE value="edit commented" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit commented" />
   </component>
 </project>

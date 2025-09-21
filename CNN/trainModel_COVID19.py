@@ -1,139 +1,127 @@
-import matplotlib.pyplot as plt
+# CNN/trainModel_COVID19.py
+# Clean, generic CNN training script for 'balanced_dataset.csv' (headlines/outcome).
+
 import tensorflow as tf
-import pandas as pd
-from keras import Model
-from keras.src.layers import Conv1D, MaxPooling1D, GlobalMaxPooling1D
-from sklearn.model_selection import train_test_split
-from tensorflow.keras.layers import TextVectorization, Embedding, Dense
-from tensorflow.keras.layers import Input
-from sklearn.metrics import f1_score, precision_score, accuracy_score, recall_score
-from sklearn.metrics import confusion_matrix, classification_report
-from tensorflow.keras.layers import Dropout
+from tensorflow.keras.layers import TextVectorization
+from keras.optimizers import Adam
 
+from common.data_utils import load_text_cls_splits
+from common.viz_utils import plot_loss
+from common.eval_utils import to_labels, confusion_and_report
+from CNN.cnn_models import build_text_cnn  # generic CNN builder (you created in CNN/cnn_models.py)
 
+# -----------------------
+# Reproducibility (optional)
+# -----------------------
+SEED = 42
+tf.keras.utils.set_random_seed(SEED)
 
-df = pd.read_csv("balanced_dataset.csv")
-
-x = df["headlines"].values
-y = df["outcome"].values
-df_train, df_test, Ytrain, Ytest = train_test_split(x, y, test_size=0.2, stratify=y)
-label_counts = pd.Series(Ytest).value_counts()
-
-
-
-# create tf datasets
-train_ds = tf.data.Dataset.from_tensor_slices((df_train, Ytrain))
-test_ds = tf.data.Dataset.from_tensor_slices((df_test, Ytest))
-
-# convert sentences to sequences
-MAX_VOCAB_SIZE = 20_000
-vectorization = TextVectorization(max_tokens = MAX_VOCAB_SIZE)
-vectorization.adapt(train_ds.map(lambda x, y: x))
-
-
-# Shuffle and batch the dataset
-train_ds = train_ds.shuffle(10000).batch(32).prefetch(tf.data.AUTOTUNE)
-test_ds = test_ds.batch(32).prefetch(tf.data.AUTOTUNE)
-
-V = len(vectorization.get_vocabulary())
-
-input_sequences_train = vectorization(df_train)
-input_sequences_test = vectorization(df_test)
-
-# print(input_sequences_test.shape)
-T = input_sequences_train.shape[1]
-
-vectorization2 = TextVectorization(
-    max_tokens=MAX_VOCAB_SIZE,
-    output_sequence_length=T,
-    vocabulary=vectorization.get_vocabulary(),
+# -----------------------
+# 1) Load & split data
+# -----------------------
+# If your 'outcome' column is already 0/1, we can use it directly.
+# If it's "fake"/"real", uncomment outcome_map below and add outcome_col="outcome".
+X_train, X_test, y_train, y_test = load_text_cls_splits(
+    csv_path="balanced_dataset.csv",
+    text_col="headlines",
+    label_col="outcome",
+    outcome_col=None,                 # set to "outcome" if you need mapping
+    outcome_map=None,                 # e.g., {"fake": 0, "real": 1}
+    test_size=0.2,
+    seed=SEED
 )
 
-# Create the model
+# -----------------------
+# 2) Text vectorization
+# -----------------------
+MAX_VOCAB = 20_000
+SEQ_LEN   = 150
 
-D = 20
+vectorizer = TextVectorization(
+    max_tokens=MAX_VOCAB,
+    output_sequence_length=SEQ_LEN
+)
+vectorizer.adapt(tf.data.Dataset.from_tensor_slices(X_train).batch(256))
 
+def to_ds(texts, labels, batch=32):
+    X = vectorizer(tf.constant(list(texts)))      # int32 [N, SEQ_LEN]
+    y = tf.constant(labels, dtype=tf.float32)     # float32 [N]
+    return (tf.data.Dataset
+            .from_tensor_slices((X, y))
+            .batch(batch)
+            .prefetch(tf.data.AUTOTUNE))
 
-i = Input(shape=(), dtype=tf.string)
-x = vectorization2(i)
-x = Embedding(V, D)(x)
-x = Conv1D(32, 3, activation='relu')(x)
-x = MaxPooling1D(3)(x)
-x = Dropout(0.3)(x)  # 🔸 הוספנו פה את Dropout
-x = Conv1D(64, 3, activation='relu')(x)
-x = MaxPooling1D(3)(x)
-x = Conv1D(128, 3, activation='relu')(x)
-x = GlobalMaxPooling1D()(x)
-# x = Dropout(0.3)(x)  # 🔸 אפשר גם אחרי ה־Pooling הסופי
-x = Dense(1, activation='sigmoid')(x)
+train_ds = to_ds(X_train, y_train, batch=32)
+test_ds  = to_ds(X_test,  y_test,  batch=32)
 
+# -----------------------
+# 3) Build model (generic)
+# -----------------------
+vocab = vectorizer.get_vocabulary()
+V = len(vocab)
+EMB_DIM = 20  # you used 20 in the original script
 
-model = Model(i, x)
+model = build_text_cnn(
+    vocab_size=V,
+    seq_len=SEQ_LEN,
+    embed_dim=EMB_DIM,
+    conv_blocks=[                 # mirrors your original architecture
+        (32, 3, 3),
+        (64, 3, 3),
+        (128, 3, 0),             # last block had no pooling in your code
+    ],
+    dropout=0.3,                  # you used Dropout after the first block
+    classifier_units=1,
+    classifier_activation="sigmoid",
+    embedding_weights=None,       # set a matrix here if you add GloVe later
+    embedding_trainable=True,
+    global_pool="max",
+    name="cnn_headlines_cls"
+)
 
-
-# Compile and fit
 model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-
+    optimizer=Adam(learning_rate=1e-3),  # same as 'adam' default; change if needed
+    loss="binary_crossentropy",
+    metrics=["accuracy"]
 )
 
-r = model.fit(
+# -----------------------
+# 4) Train
+# -----------------------
+early_stop = tf.keras.callbacks.EarlyStopping(
+    monitor="val_loss",
+    patience=3,
+    restore_best_weights=True
+)
+
+history = model.fit(
     train_ds,
     validation_data=test_ds,
     epochs=30,
+    callbacks=[early_stop]
 )
 
-# plt.plot(r.history['loss'], label='loss')
-# plt.plot(r.history['val_loss'], label='val_loss')
-# plt.legend()
-# plt.show()
-#
-# plt.plot(r.history['accuracy'], label='acc')
-# plt.plot(r.history['val_accuracy'], label='val_acc')
-# plt.legend()
-# plt.show()
+# -----------------------
+# 5) Plot loss
+# -----------------------
+plot_loss(history, title="CNN Loss (headlines/outcome)")
 
-# print(f1_score(Ytrain, model.predict(df_train) >0.5))
-# print(f1_score(Ytest, model.predict(df_test) >0.5))
+# -----------------------
+# 6) Evaluate
+# -----------------------
+# Predict on the tokenized test inputs (NOT raw strings)
+X_test_vec = vectorizer(tf.constant(X_test))
+y_pred_probs = model.predict(X_test_vec, batch_size=32).reshape(-1)
+y_pred = to_labels(y_pred_probs, threshold=0.5)
 
-final_val_loss = r.history['val_loss'][-1]
-print(f"Final validation loss: {final_val_loss:.4f}")
+confusion_and_report(y_test, y_pred, target_names=("Fake", "Real"))
 
-# Step 1: Extract texts and labels from test_ds
-texts = []
-labels = []
+# Optional: also show Keras evaluate
+loss, acc = model.evaluate(test_ds, verbose=0)
+print(f"\nKeras evaluate → loss={loss:.4f}  acc={acc:.4f}")
 
-for text, label in test_ds.unbatch():
-    texts.append(text.numpy().decode('utf-8'))
-    labels.append(int(label.numpy()))
-
-# Step 2: Predictions
-texts_tensor = tf.convert_to_tensor(texts)
-pred_probs = model.predict(texts_tensor)
-pred_labels = (pred_probs.flatten() >= 0.5).astype(int)
-
-# Step 3: Confusion Matrix
-cm = confusion_matrix(labels, pred_labels)
-TN, FP, FN, TP = cm.ravel()
-
-# Step 4: Additional Metrics
-accuracy = accuracy_score(labels, pred_labels)
-precision = precision_score(labels, pred_labels)
-recall = recall_score(labels, pred_labels)
-f1 = f1_score(labels, pred_labels)
-
-# Output
-print("\n📊 Model Results:")
-print(f"✅ True Positives: {TP}")
-print(f"❌ False Positives: {FP}")
-print(f"❌ False Negatives: {FN}")
-print(f"✅ True Negatives: {TN}")
-print(f"📌 Prediction real news (total): {sum(pred_labels)}")
-
-print("\n📈 Metrics:")
-print(f"🎯 Accuracy:  {accuracy:.4f}")
-print(f"🎯 Precision: {precision:.4f}")
-print(f"🔁 Recall:    {recall:.4f}")
-print(f"💡 F1 Score:  {f1:.4f}")
+# -----------------------
+# 7) Save model
+# -----------------------
+model.save("CNN_Models/covid_headlines.keras", save_format="keras")
+print("✅ Saved to CNN_Models/covid_headlines.keras")

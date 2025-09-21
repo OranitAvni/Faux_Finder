@@ -1,172 +1,108 @@
-import pandas as pd
-import numpy as np
+# CNN/trainModelWithGloVe.py
+# Clean, generic CNN training script using shared utils and a generic model builder.
+
 import tensorflow as tf
-import matplotlib.pyplot as plt
-from keras.src.optimizers import Adam
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, precision_score, accuracy_score, recall_score, confusion_matrix
-from tensorflow.keras.layers import TextVectorization, Embedding, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Dense, Input, Dropout
-from keras import Model
-import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
+import numpy as np
+import pandas as pd
+from tensorflow.keras.layers import TextVectorization
+from keras.optimizers import Adam
 
-# --- Download text preprocessing resources ---
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
+from common.data_utils import load_text_cls_splits
+from common.viz_utils import plot_loss
+from common.eval_utils import to_labels, confusion_and_report
+from CNN.cnn_models import build_text_cnn  # <- external generic builder
 
-stop_words = set(stopwords.words('english'))
-lemmatizer = WordNetLemmatizer()
+# --- Step 0: (optional) reproducibility ---
+SEED = 42
+tf.keras.utils.set_random_seed(SEED)
 
-# --- Text cleaning function ---
-def clean_text(text):
-    text = text.lower()
-    text = re.sub(r"http\S+|www\S+|https\S+", "", text)
-    text = re.sub(r"@\w+|#\w+", "", text)
-    text = re.sub(r"[^a-z\s]", "", text)
-    text = re.sub(r"(.)\1{2,}", r"\1", text)
-    words = nltk.word_tokenize(text)
-    words = [word for word in words if word not in stop_words]
-    words = [lemmatizer.lemmatize(word) for word in words]
-    return " ".join(words)
-
-# --- Step 1: Load and preprocess ---
-df = pd.read_csv("Datasets/kaggle_dataset_politics.csv")
-
-df["text"] = df["text"].astype(str).apply(clean_text)
-df["label"] = df["label"].astype('float32')
-
-x = df["text"].values
-y = df["label"].values.astype('float32')
-df_train, df_test, Ytrain, Ytest = train_test_split(x, y, test_size=0.2, stratify=y)
-
-train_ds = tf.data.Dataset.from_tensor_slices((df_train, Ytrain))
-test_ds = tf.data.Dataset.from_tensor_slices((df_test, Ytest))
-
-MAX_VOCAB_SIZE = 20_000
-vectorization = TextVectorization(max_tokens=MAX_VOCAB_SIZE, output_sequence_length=150)
-vectorization.adapt(train_ds.map(lambda x, y: x))
-
-train_ds = train_ds.shuffle(10000).batch(32).prefetch(tf.data.AUTOTUNE)
-test_ds = test_ds.batch(32).prefetch(tf.data.AUTOTUNE)
-
-# --- Step 2: Load GloVe embeddings ---
-print("\U0001F4E5 Loading GloVe...")
-embedding_index = {}
-with open("glove.6B.100d.txt", encoding='utf8') as f:
-    for line in f:
-        values = line.split()
-        word = values[0]
-        vector = np.asarray(values[1:], dtype='float32')
-        embedding_index[word] = vector
-
-# --- Step 3: Build embedding matrix ---
-embedding_dim = 100
-vocab = vectorization.get_vocabulary()
-word_index = dict(zip(vocab, range(len(vocab))))
-
-embedding_matrix = np.zeros((len(vocab), embedding_dim))
-for word, i in word_index.items():
-    embedding_vector = embedding_index.get(word)
-    if embedding_vector is not None:
-        embedding_matrix[i] = embedding_vector
-
-# --- Step 4: Build model ---
-D = embedding_dim
-V = len(vocab)
-
-vectorization2 = TextVectorization(
-    max_tokens=MAX_VOCAB_SIZE,
-    output_sequence_length=150,
-    vocabulary=vocab,
+# --- Step 1: Load data ---
+X_train, X_test, y_train, y_test = load_text_cls_splits(
+    csv_path="../data/balanced_10k_dataset_politics.csv",
+    text_col="text",
+    label_col="label",
+    test_size=0.2,
+    seed=SEED
 )
 
-i = Input(shape=(), dtype=tf.string)
-x = vectorization2(i)
-x = Embedding(V, D, weights=[embedding_matrix], trainable=True)(x)
+# --- Step 2: Vectorization ---
+MAX_VOCAB = 20_000
+SEQ_LEN = 150
 
-# Just like in the paper: 2 convolution blocks only
-x = Conv1D(64, 2, activation='relu')(x)
-x = MaxPooling1D(3)(x)
-x = Dropout(0.3)(x)
+vectorizer = TextVectorization(
+    max_tokens=MAX_VOCAB,
+    output_sequence_length=SEQ_LEN
+)
+vectorizer.adapt(tf.data.Dataset.from_tensor_slices(X_train).batch(256))
 
-x = Conv1D(128, 2, activation='relu')(x)
-x = MaxPooling1D(3)(x)
-x = Dropout(0.3)(x)
+def to_ds(texts, labels, batch=32):
+    X = vectorizer(tf.constant(list(texts)))           # -> int32 [N, SEQ_LEN]
+    y = tf.constant(labels, dtype=tf.float32)          # -> float32 [N]
+    return (tf.data.Dataset
+            .from_tensor_slices((X, y))
+            .batch(batch)
+            .prefetch(tf.data.AUTOTUNE))
 
-x = GlobalMaxPooling1D()(x)
-x = Dropout(0.3)(x)
-x = Dense(1, activation='sigmoid')(x)
+train_ds = to_ds(X_train, y_train)
+test_ds  = to_ds(X_test,  y_test)
 
-model = Model(i, x)
+# --- Step 3: Build model (generic) ---
+# Use the vocabulary the vectorizer actually learned:
+vocab = vectorizer.get_vocabulary()
+V = len(vocab)        # true vocab size (<= MAX_VOCAB)
+EMB_DIM = 100
+
+# If you have a GloVe embedding matrix aligned to 'vocab', pass it here.
+embedding_matrix = None  # replace with your matrix (shape [V, EMB_DIM]) if available.
+
+model = build_text_cnn(
+    vocab_size=V,
+    seq_len=SEQ_LEN,
+    embed_dim=EMB_DIM,
+    conv_blocks=[(64, 2, 3), (128, 2, 3)],   # your specific architecture
+    dropout=0.3,
+    classifier_units=1,
+    classifier_activation="sigmoid",
+    embedding_weights=embedding_matrix,
+    embedding_trainable=True,
+    global_pool="max",
+    name="cnn_text_cls"
+)
+
 model.compile(
-    optimizer=Adam(learning_rate=0.00001),
-    loss='binary_crossentropy',
-    metrics=['accuracy'])
+    optimizer=Adam(learning_rate=1e-5),
+    loss="binary_crossentropy",
+    metrics=["accuracy"]
+)
+
+# --- Step 4: Train ---
 early_stop = tf.keras.callbacks.EarlyStopping(
-    monitor='val_loss',
+    monitor="val_loss",
     patience=3,
     restore_best_weights=True
 )
+history = model.fit(
+    train_ds,
+    validation_data=test_ds,
+    epochs=30,
+    callbacks=[early_stop]
+)
 
-r = model.fit(train_ds, validation_data=test_ds, epochs=30, callbacks=[early_stop])
+# --- Step 5: Plot loss ---
+plot_loss(history, title="CNN Loss")
 
-# --- Plot loss over epochs ---
-plt.figure(figsize=(8, 5))
-plt.plot(r.history['loss'], label='Train')
-plt.plot(r.history['val_loss'], label='Validation')
-plt.title('Model Loss Over Epochs')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+# --- Step 6: Evaluate ---
+# IMPORTANT: Predict over tokenized inputs (not raw strings)
+X_test_vec = vectorizer(tf.constant(X_test))           # shape [N, SEQ_LEN], int32
+y_pred_probs = model.predict(X_test_vec, batch_size=32).reshape(-1)
+y_pred = to_labels(y_pred_probs, threshold=0.5)
 
-# --- Save model and vectorization ---
-model.save("CNN_Models/kaggle_dataset_politics.keras", save_format="keras")
-print("\n✅ Model and vectorization saved successfully!")
+confusion_and_report(y_test, y_pred, target_names=("Fake", "Real"))
 
-# --- Evaluate model on test set ---
-texts = []
-labels = []
+# (optional) also print Keras evaluate for loss/accuracy agreement:
+test_loss, test_acc = model.evaluate(test_ds, verbose=0)
+print(f"\nKeras evaluate → loss={test_loss:.4f}  acc={test_acc:.4f}")
 
-for text, label in test_ds.unbatch():
-    texts.append(text.numpy().decode('utf-8'))
-    labels.append(int(label.numpy()))
-
-texts_tensor = tf.convert_to_tensor(texts)
-pred_probs = model.predict(texts_tensor)
-pred_labels = (pred_probs.flatten() >= 0.5).astype(int)
-
-# Invert labels so TP in output is for fake (0)
-labels = 1 - np.array(labels)
-pred_labels = 1 - pred_labels
-
-# Confusion matrix
-cm = confusion_matrix(labels, pred_labels)
-TN, FP, FN, TP = cm.ravel()
-
-# --- Compute metrics ---
-accuracy = (TP + TN) / (TP + TN + FP + FN)
-precision = TP / (TP + FP) if (TP + FP) > 0 else 0
-recall = TP / (TP + FN) if (TP + FN) > 0 else 0
-f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
-loss, _ = model.evaluate(test_ds, verbose=0)
-
-print("\n📊results:")
-print(f"✅ True Positives: {TP}")
-print(f"❌ False Positives: {FP}")
-print(f"❌ False Negatives: {FN}")
-print(f"✅ True Negatives: {TN}")
-print(f"📌 Prediction fake news: {sum(pred_labels)}")
-
-print("\n📈")
-print(f"🎯 Accuracy :  {accuracy:.4f}")
-print(f"🎯 Precision: {precision:.4f}")
-print(f"🔁 Recall:    {recall:.4f}")
-print(f"💡 F1 Score:  {f1:.4f}")
-print(f"🧮 Loss:              {loss:.4f}")
+# --- Step 7: Save model ---
+model.save("CNN_Models/kaggle_dataset_politics_after_changes.keras", save_format="keras")
+print("✅ Saved to CNN_Models/kaggle_dataset_politics.keras")

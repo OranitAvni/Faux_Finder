@@ -9,13 +9,13 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# הורדת משאבים
+# Download NLTK resources
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 
-# ניקוי טקסט
+# Text cleaning
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 def clean_text(text):
@@ -29,31 +29,31 @@ def clean_text(text):
     words = [lemmatizer.lemmatize(word) for word in words]
     return " ".join(words)
 
-# שלב 1: טען את המודל
+# Step 1: Load the trained model
 model = load_model("CNN_Models/kaggle_dataset_politics.keras")
 
-# שלב 2: טען את הדאטאסט החדש
+# Step 2: Load the new dataset
 df = pd.read_csv("Datasets/combined_balanced_sport.csv")
 df["text"] = df["text"].astype(str).apply(clean_text)
 
-# שלב 3: הכנת וקטוריזציה
+# Step 3: Prepare vectorization
 vectorization = TextVectorization(max_tokens=20000, output_sequence_length=150)
 vectorization.adapt(df["text"])
 
-# טנסורים
+# Tensors
 text_label_ds = tf.data.Dataset.from_tensor_slices((df["text"], df["label"])).batch(32)
 text_ds = tf.data.Dataset.from_tensor_slices(df["text"]).batch(32)
 
-# חישוב loss
+# Compute loss
 loss, _ = model.evaluate(text_label_ds, verbose=0)
 print(f"🧮 Loss: {loss:.4f}")
 
-# שלב 5: ניבוי
+# Step 5: Prediction
 probs = model.predict(text_ds)
 df["score"] = probs.flatten()
 df["predicted_label"] = (df["score"] >= 0.5).astype(int)
 
-# שלב 6: חישוב ביצועים
+# Step 6: Evaluation
 if "label" in df.columns:
     y_true = 1 - df["label"].astype(int).values
     y_pred = 1 - df["predicted_label"].values
@@ -61,29 +61,29 @@ if "label" in df.columns:
     cm = confusion_matrix(y_true, y_pred)
     TN, FP, FN, TP = cm.ravel()
 
-    # מיפוי לפלט תואם אקסל
-    FN_excel = TP  # פייק שזוהו נכון
-    TP_excel = FP  # אמיתיות שסווגו כפייק
-    FP_excel = FN  # פייק שסווגו כאמיתיות
-    TN_excel = TN  # אמיתיות שזוהו נכון
+    # Mapping for Excel-compatible output
+    FN_excel = TP  # Fakes correctly identified
+    TP_excel = FP  # Real news classified as Fake
+    FP_excel = FN  # Fakes classified as Real
+    TN_excel = TN  # Real news correctly identified
 
-    # מדדים
+    # Metrics
     precision = TP_excel / (TP_excel + FP_excel) if (TP_excel + FP_excel) > 0 else 0
     recall = TP_excel / (TP_excel + FN_excel) if (TP_excel + FN_excel) > 0 else 0
     f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
     accuracy = (TP_excel + TN_excel) / (TP_excel + TN_excel + FP_excel + FN_excel)
 
-    # --- פלט תואם אקסל ---
-    print("\n📊 תוצאה תואמת לטבלת האקסל שלך:")
+    # --- Excel-compatible output ---
+    print("\n📊 Results compatible with your Excel table:")
     print(f"✅ True Positives (I): {TP_excel}")
     print(f"❌ False Positives (H): {FP_excel}")
     print(f"❌ False Negatives (J): {FN_excel}")
     print(f"✅ True Negatives (K): {TN_excel}")
 
-    print("\n📈 מדדים (עמודות L–O):")
+    print("\n📈 Metrics (columns L–O):")
     print(f"📊 Accuracy (L):  {accuracy:.4f}")
     print(f"🎯 Precision (M): {precision:.4f}")
     print(f"🔁 Recall (N):    {recall:.4f}")
     print(f"💡 F1 Score (O):  {f1:.4f}")
 else:
-    print("⚠️ לא נמצאה עמודת 'label' בדאטהסט — לא ניתן לחשב ביצועים.")
+    print("⚠️ 'label' column not found in dataset — cannot compute evaluation metrics.")
